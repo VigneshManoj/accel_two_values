@@ -1,0 +1,6 @@
+  <launch>
+    <!-- Test Node-->
+      <node pkg="accel_two_values" type="accel_two_values"
+          name="accel_two_values" output="screen" />
+  
+  </launch>

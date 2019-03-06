@@ -24,7 +24,7 @@ struct input_two_accel
     float pos_z;
 };
 
-//To extract the wrench data from the wrench node
+//To extract the wrench data from the wrench node (get the acceleration values of tip)
 void call_wrench_func(accel_two_values::Num5 custom_var1)
 {
     float accelx,accely,accelz;
@@ -37,7 +37,7 @@ void call_wrench_func(accel_two_values::Num5 custom_var1)
 
 }
 
-//To extract the wrench data from the wrench_insertion node
+//To extract the wrench data from the wrench_insertion node (get the acceleration values of insertion link)
 void call_wrench_ins_func(accel_two_values::Num5 custom_var2)
 {
     float accelx,accely,accelz;
@@ -59,7 +59,7 @@ void write_accel_val( input_two_accel custom_var)
       ros::Time t;
       t=ros::Time::now();
       //std::cout<<"\nThe accel value in write_accel function is "<<custom_var.accelx_wrench_ins<<" "<<custom_var.accely_wrench_ins<<" "<<custom_var.accelz_wrench_ins<<std::endl;
-     // std::cout<<"\n The position value in write_accel function is "<<custom_var.pos_x<<" "<<custom_var.pos_y<<" "<<custom_var.pos_z<<std::endl;
+      // std::cout<<"\n The position value in write_accel function is "<<custom_var.pos_x<<" "<<custom_var.pos_y<<" "<<custom_var.pos_z<<std::endl;
       myfile.open ("/home/aimlabx/Desktop/accel_two_values.csv",std::ios_base::app);
       if(i>10)
       {
@@ -94,9 +94,6 @@ int main(int argc, char **argv)
       ros::NodeHandle n;
       //Structure variable
       input_two_accel var3;
-      tf::TransformListener listener;
-      tf::StampedTransform transform;
-
       //Subscribing to both the customtf and insertion topics
       ros::Subscriber sub1 = n.subscribe("/wrench_visualization/wrench_insertion", 1, call_wrench_ins_func);
       ros::Subscriber sub2 = n.subscribe("/wrench_visualization/wrench", 1, call_wrench_func);
